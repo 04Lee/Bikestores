@@ -219,6 +219,7 @@
     <Content Include="Content\Images\background.png" />
     <Content Include="Content\Images\Bicycle.png" />
     <Content Include="Content\Images\Customer.png" />
+    <Content Include="Content\Images\Report.jpeg" />
     <Content Include="Content\Images\Staff.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
