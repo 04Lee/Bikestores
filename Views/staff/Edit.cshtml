@@ -1,0 +1,104 @@
+﻿@model Bikestores.Models.staff
+
+@{
+    ViewBag.Title = "Edit Staff";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-body p-5">
+                    <h3 class="text-center text-primary fw-bold mb-4">Edit Staff Member</h3>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.staff_id)
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.first_name, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(model => model.first_name, new { @class = "form-control", placeholder = "Enter first name" })
+                            @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.last_name, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(model => model.last_name, new { @class = "form-control", placeholder = "Enter last name" })
+                            @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.email, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(model => model.email, new { @class = "form-control", type = "email", placeholder = "example@domain.com" })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.phone, new { @class = "form-label fw-semibold" })
+                            @Html.TextBoxFor(model => model.phone, new { @class = "form-control", placeholder = "Enter phone number" })
+                            @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.Label("Active Status", new { @class = "form-label fw-semibold" })
+                            <select class="form-control" name="active">
+                                <option value="1" @(Model.active == 1 ? "selected" : "")>Active</option>
+                                <option value="0" @(Model.active == 0 ? "selected" : "")>Inactive</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.store_id, "Store", new { @class = "form-label fw-semibold" })
+                            @Html.DropDownList("store_id", null, "-- Select Store --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.store_id, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-4">
+                            @Html.LabelFor(model => model.manager_id, "Manager", new { @class = "form-label fw-semibold" })
+                            @Html.DropDownList("manager_id", null, "-- Select Manager --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.manager_id, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3">
+                            <input type="submit" value="Save Changes" class="btn btn-success px-4 py-2 rounded-pill shadow-sm fw-semibold" />
+                            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-outline-secondary px-4 py-2 rounded-pill" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .card {
+        border-radius: 1rem;
+    }
+
+    .btn {
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.03);
+        }
+
+    .form-label {
+        color: #343a40;
+    }
+
+    h3 {
+        letter-spacing: 0.3px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

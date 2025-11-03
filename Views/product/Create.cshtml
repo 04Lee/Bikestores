@@ -1,0 +1,96 @@
+﻿@model Bikestores.Models.product
+
+@{
+    ViewBag.Title = "Create Product";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h3 class="text-center text-primary fw-bold mb-4">Create New Product</h3>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.product_name, new { @class = "form-label fw-semibold" })
+                            @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter product name" } })
+                            @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.brand_id, "Brand", new { @class = "form-label fw-semibold" })
+                            @Html.DropDownList("brand_id", null, "-- Select Brand --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.brand_id, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.category_id, "Category", new { @class = "form-label fw-semibold" })
+                            @Html.DropDownList("category_id", null, "-- Select Category --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.LabelFor(model => model.model_year, new { @class = "form-label fw-semibold" })
+                            @Html.EditorFor(model => model.model_year, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter model year" } })
+                            @Html.ValidationMessageFor(model => model.model_year, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group mb-4">
+                            @Html.LabelFor(model => model.list_price, new { @class = "form-label fw-semibold" })
+                            @Html.EditorFor(model => model.list_price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter list price" } })
+                            @Html.ValidationMessageFor(model => model.list_price, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3">
+                            <input type="submit" value="Create Product" class="btn btn-success px-4 py-2 rounded-pill shadow-sm fw-semibold" />
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary px-4 py-2 rounded-pill" })
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .card {
+        border-radius: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+
+    .btn {
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.03);
+        }
+
+    .form-label {
+        color: #343a40;
+    }
+
+    h3 {
+        letter-spacing: 0.3px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

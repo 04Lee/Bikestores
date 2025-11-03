@@ -1,0 +1,86 @@
+﻿@model Bikestores.Models.customer
+
+@{
+    ViewBag.Title = "Customer Details";
+
+    string fullName = $"{Model.first_name} {Model.last_name}";
+    string phone = Model.phone ?? "N/A";
+    string email = Model.email ?? "N/A";
+    string address = $"{Model.street}, {Model.city}, {Model.state}, {Model.zip_code}";
+    string defaultCustomerImage = Url.Content("~/Content/Images/Customer.png"); 
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card shadow-lg border-0 rounded-4 text-center p-4">
+                <img src="@defaultCustomerImage" alt="@fullName" class="customer-img mb-3" />
+
+                <div class="card-body">
+                    <h3 class="text-primary fw-bold mb-4">Customer Details</h3>
+
+                    <p class="fw-semibold mb-1">Name:</p>
+                    <p class="text-muted mb-3">@fullName</p>
+
+                    <p class="fw-semibold mb-1">Phone:</p>
+                    <p class="text-muted mb-3">@phone</p>
+
+                    <p class="fw-semibold mb-1">Email:</p>
+                    <p class="text-muted mb-3">@email</p>
+
+                    <p class="fw-semibold mb-1">Address:</p>
+                    <p class="text-muted mb-3">@address</p>
+
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.customer_id }, new { @class = "btn btn-outline-warning px-4 py-2 rounded-pill shadow-sm" })
+                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .customer-img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 3px solid #dee2e6;
+        border-radius: 50%;
+        background-color: #fff;
+        margin: auto;
+    }
+
+    .card {
+        border-radius: 1rem;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+    h3 {
+        letter-spacing: 0.3px;
+    }
+
+    .fw-semibold {
+        font-weight: 600;
+    }
+
+    .btn {
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.03);
+        }
+</style>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Bikestores.Models.customer>
+
+@{
+    ViewBag.Title = "Customers";
+    string defaultCustomerImage = Url.Content("~/Content/Images/Customer.png"); // Placeholder image
+}
+
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4 text-primary">Customer List</h2>
+
+    <div class="text-center mb-4">
+        @Html.ActionLink("Add Customer", "Create", null, new { @class = "btn btn-primary px-4 py-2 rounded-pill shadow-sm fw-bold" })
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p class="text-center text-muted mt-5">No customers found.</p>
+    }
+    else
+    {
+        <div class="row justify-content-center g-4">
+            @foreach (var item in Model)
+            {
+                string customerFullName = $"{item.first_name} {item.last_name}";
+                string address = $"{item.street}, {item.city}, {item.state}, {item.zip_code}";
+
+                <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <div class="card border-0 shadow-sm rounded-4 w-100" style="max-width: 360px;">
+                        <div class="card-body text-center p-4">
+                            <img src="@defaultCustomerImage" alt="@customerFullName" class="customer-img mb-3" />
+
+                            <h5 class="card-title fw-bold mb-2">@customerFullName</h5>
+                            <p class="text-muted mb-1">@item.phone</p>
+                            <p class="text-muted mb-2">@item.email</p>
+                            <p class="small text-muted mb-3">@address</p>
+
+                            <div class="d-flex justify-content-center gap-2 mt-2">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.customer_id }, new { @class = "btn btn-outline-info btn-sm px-3" })
+                                @Html.ActionLink("Details", "Details", new { id = item.customer_id }, new { @class = "btn btn-outline-info btn-sm px-3" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.customer_id }, new { @class = "btn btn-outline-info btn-sm px-3" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .customer-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 3px solid #dee2e6;
+        border-radius: 50%;
+        background-color: #fff;
+        margin: auto;
+    }
+
+    .card {
+        border-radius: 1rem;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+    .btn {
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.03);
+        }
+
+    h2 {
+        letter-spacing: 0.5px;
+    }
+</style>

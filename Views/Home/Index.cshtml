@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main class="container my-5">
+
+  
+    <section class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Welcome to BikeStore!</h1>
+        <p class="lead">Manage your products, staff, and customers with ease using the BikeStore management system.</p>
+       
+    </section>
+
+    
+    <div class="row g-4">
+        <section class="col-md-4">
+            <div class="card shadow-sm h-100 border-0 rounded-4 text-center p-3">
+                <div class="card-body">
+                    <img src="~/Content/Images/Bicycle.png" alt="Manage Products" class="feature-img img-fluid rounded-circle mb-3" />
+                    <h3 class="card-title fw-bold text-primary">Manage Products</h3>
+                    <p class="card-text">Add, edit, and delete products. Keep track of inventory, prices, and categories easily.</p>
+                    <a class="btn btn-outline-primary" href="@Url.Action("Index", "product")">Go to Products &raquo;</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-md-4">
+            <div class="card shadow-sm h-100 border-0 rounded-4 text-center p-3">
+                <div class="card-body">
+                    <img src="~/Content/Images/Staff.png" alt="Manage Staff" class="feature-img img-fluid rounded-circle mb-3" />
+                    <h3 class="card-title fw-bold text-primary">Manage Staff</h3>
+                    <p class="card-text">Track staff members, assign roles, and manage store assignments efficiently.</p>
+                    <a class="btn btn-outline-primary" href="@Url.Action("Index", "staff")">Go to Staff &raquo;</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-md-4">
+            <div class="card shadow-sm h-100 border-0 rounded-4 text-center p-3">
+                <div class="card-body">
+                    <img src="~/Content/Images/Customer.png" alt="Manage Customers" class="feature-img img-fluid rounded-circle mb-3" />
+                    <h3 class="card-title fw-bold text-primary">Manage Customers</h3>
+                    <p class="card-text">Keep customer information organized, including contact info and addresses.</p>
+                    <a class="btn btn-outline-primary" href="@Url.Action("Index", "customers")">Go to Customers &raquo;</a>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    h1, h3 {
+        letter-spacing: 0.3px;
+    }
+
+    /* Feature images */
+    .feature-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 3px solid #dee2e6;
+        padding: 5px;
+        background-color: #fff;
+    }
+
+    /* Card hover effect */
+    .card {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+    /* Button hover effects */
+    .btn {
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+    /* Gradient button */
+    .btn-gradient {
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        color: #fff;
+        border: none;
+    }
+
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #0072ff, #00c6ff);
+            color: #fff;
+        }
+</style>

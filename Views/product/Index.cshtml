@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Bikestores.Models.product>
+
+@{
+    ViewBag.Title = "Products";
+    var brands = ViewBag.Brands as IEnumerable<SelectListItem>;
+    var categories = ViewBag.Categories as IEnumerable<SelectListItem>;
+    string selectedBrand = ViewBag.SelectedBrand as string;
+    string selectedCategory = ViewBag.SelectedCategory as string;
+
+    
+    var random = new Random();
+}
+
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4 text-primary">Product Catalog</h2>
+
+    
+    <form method="get" class="row justify-content-center mb-4 g-3">
+        <div class="col-md-4 col-sm-6">
+            <label for="brand" class="form-label fw-semibold">Filter by Brand</label>
+            @Html.DropDownList("brand", brands, "All Brands", new { @class = "form-select", onchange = "this.form.submit();" })
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label for="category" class="form-label fw-semibold">Filter by Category</label>
+            @Html.DropDownList("category", categories, "All Categories", new { @class = "form-select", onchange = "this.form.submit();" })
+        </div>
+    </form>
+
+    <div class="text-center mb-4">
+        @Html.ActionLink("Add Product", "Create", null, new { @class = "btn btn-primary px-4 py-2 rounded-pill shadow-sm" })
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p class="text-center text-muted mt-5">No products found.</p>
+    }
+    else
+    {
+        <div class="row justify-content-center">
+            @foreach (var item in Model)
+            {
+                string productName = item.product_name ?? "N/A";
+                string modelYear = item.model_year.ToString();
+                string price = item.list_price.ToString("C");
+                string brandName = item.brand?.brand_name ?? "—";
+                string categoryName = item.category?.category_name ?? "—";
+
+                // image selection
+                string imageFolder = Url.Content("~/Content/Bike-Images");
+                int imageIndex = random.Next(1, 3); 
+                string brandFileName = $"{(brandName ?? "default").Replace(" ", "_")}{imageIndex}.jpeg";
+                string imagePath = $"{imageFolder}/{brandFileName}";
+                string defaultImage = Url.Content("~/Content/Bike-Images/default.jpeg");
+
+                <div class="col-md-4 col-sm-6 mb-4 d-flex justify-content-center">
+                <div class="card border-0 shadow-sm rounded-4 w-100" style="max-width: 360px;">
+                        <img src="@imagePath" alt="@brandName Bike" class="card-img-top product-img"
+                             onerror="this.onerror=null;this.src='@defaultImage';" />
+
+                        <div class="card-body p-4 text-center">
+                            <h5 class="card-title fw-bold text-dark mb-1">@productName</h5>
+                            <p class="text-muted mb-2">@brandName | @categoryName</p>
+                            <p class="mb-2"><strong>Year:</strong> @modelYear</p>
+                            <p class="mb-3"><strong>Price:</strong> @price</p>
+
+                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.product_id }, new { @class = "btn btn-outline-info btn-sm px-3" })
+                                @Html.ActionLink("Details", "Details", new { id = item.product_id }, new { @class = "btn btn-outline-info btn-sm px-3" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.product_id }, new { @class = "btn btn-outline-info btn-sm px-3" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .product-img {
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+
+    .card {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+    .btn {
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.03);
+        }
+
+    h2 {
+        letter-spacing: 0.5px;
+    }
+
+    form label {
+        font-size: 0.95rem;
+    }
+</style>

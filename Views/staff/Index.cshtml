@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Bikestores.Models.staff>
+
+@{
+    ViewBag.Title = "Staff List";
+    // Placeholder image folder
+    string defaultStaffImage = Url.Content("~/Content/Images/Staff.png");
+}
+
+<h2 class="text-center text-primary mb-4">Staff Members</h2>
+
+
+<div class="text-center mb-4">
+    @Html.ActionLink("Add Staff Member", "Create", null, new { @class = "btn btn-primary px-4 py-2 rounded-pill shadow-sm fw-bold" })
+</div>
+
+<div class="row g-4">
+    @foreach (var item in Model)
+    {
+        string staffFullName = item.first_name + " " + item.last_name;
+        string isActive = item.active == 1 ? "Yes" : "No";
+        string managerName = item.staff1 != null ? item.staff1.first_name + " " + item.staff1.last_name : "—";
+        string storeName = item.store != null ? item.store.store_name : "—";
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow-sm border-0 rounded-4 h-100 text-center p-3">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <img src="@defaultStaffImage" alt="@staffFullName" class="staff-img mb-3" />
+                    <h5 class="card-title fw-bold text-dark mb-2">@staffFullName</h5>
+
+                    <p class="card-text small mb-3 text-muted">
+                        <strong>Email:</strong> @item.email <br />
+                        <strong>Phone:</strong> @item.phone <br />
+                        <strong>Active:</strong> @isActive <br />
+                        <strong>Manager:</strong> @managerName <br />
+                        <strong>Store:</strong> @storeName
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-2 mt-auto">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.staff_id }, new { @class = "btn btn-sm btn-outline-info fw-semibold" })
+                        @Html.ActionLink("Details", "Details", new { id = item.staff_id }, new { @class = "btn btn-sm btn-outline-info fw-semibold" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.staff_id }, new { @class = "btn btn-sm btn-outline-info fw-semibold" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+        letter-spacing: 0.05em;
+        font-weight: 700;
+    }
+
+    .card {
+        border-radius: 1rem;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        background-color: #fff;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .staff-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 3px solid #dee2e6;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-text {
+        color: #495057;
+    }
+
+    .btn-outline-warning,
+    .btn-outline-info,
+    .btn-outline-danger {
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+        .btn-outline-warning:hover {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #0dcaf0;
+            color: #fff;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+    .btn-primary {
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+    }
+</style>

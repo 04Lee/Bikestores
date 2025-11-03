@@ -1,0 +1,96 @@
+﻿@model Bikestores.Models.staff
+
+@{
+    ViewBag.Title = "Staff Details";
+
+    string firstName = Model?.first_name ?? "N/A";
+    string lastName = Model?.last_name ?? "";
+    string email = Model?.email ?? "N/A";
+    string phone = Model?.phone ?? "N/A";
+    string manager = Model?.staff1?.first_name ?? "—";
+    string storeName = Model?.store?.store_name ?? "—";
+    bool isActive = (Model?.active == 1);
+
+    
+    string staffFullName = firstName + " " + lastName;
+    string defaultStaffImage = Url.Content("~/Content/Images/Staff.png");
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-10">
+            <div class="card shadow-sm border-0 rounded-4 text-center p-4">
+                <img src="@defaultStaffImage" alt="@staffFullName" class="staff-img mb-3" />
+
+                <div class="card-body">
+                    <h3 class="text-primary fw-bold mb-4">Staff Details</h3>
+
+                    <div class="text-start mb-4 small">
+                        <p><strong>First Name:</strong> @firstName</p>
+                        <p><strong>Last Name:</strong> @lastName</p>
+                        <p><strong>Email:</strong> @email</p>
+                        <p><strong>Phone:</strong> @phone</p>
+                        <p>
+                            <strong>Status:</strong>
+                            @if (isActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </p>
+                        <p><strong>Manager:</strong> @manager</p>
+                        <p><strong>Store:</strong> @storeName</p>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.staff_id }, new { @class = "btn btn-outline-warning px-4 py-2 rounded-pill shadow-sm" })
+                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary px-4 py-2 rounded-pill" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .staff-img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 3px solid #dee2e6;
+        border-radius: 50%;
+        background-color: #fff;
+        margin: auto;
+    }
+
+    .card {
+        border-radius: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        }
+
+    .btn {
+        transition: all 0.2s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.03);
+        }
+
+    .badge {
+        font-size: 0.85rem;
+        padding: 0.4em 0.8em;
+    }
+</style>
